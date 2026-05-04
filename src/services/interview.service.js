@@ -8,6 +8,15 @@ const api = axios.create({
   withCredentials: true,
 });
 
+// Add a request interceptor to add the token to headers
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
 const interviewService = {
   // Generate a new report
   // Expects formData with 'resume' (File), 'jobDescription', 'selfDescription'
