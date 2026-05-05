@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../auth/hooks/useAuth';
 import { Link } from 'react-router';
 import interviewService from '../../../services/interview.service';
+import { motion } from 'framer-motion';
 
 const Dashboard = () => {
     const { user } = useAuth();
@@ -139,7 +140,23 @@ const Dashboard = () => {
                             {loading && (
                                 <tr>
                                     <td colSpan="4" className="py-8 text-center">
-                                        <div className="animate-spin inline-block w-6 h-6 border-2 border-primary border-t-transparent rounded-full"></div>
+                                        <div className="flex flex-col items-center gap-3">
+                                            <div className="relative flex items-center justify-center">
+                                                <motion.div
+                                                    className="w-10 h-10 rounded-full"
+                                                    style={{ border: '2.5px solid transparent', borderTopColor: 'rgb(59, 130, 246)', borderRightColor: 'rgba(59, 130, 246, 0.3)' }}
+                                                    animate={{ rotate: 360 }}
+                                                    transition={{ duration: 1.2, repeat: Infinity, ease: 'linear' }}
+                                                />
+                                                <motion.span
+                                                    className="absolute material-symbols-outlined text-blue-500 text-[18px]"
+                                                    style={{ fontVariationSettings: "'FILL' 1" }}
+                                                    animate={{ scale: [1, 1.2, 1] }}
+                                                    transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                                                >auto_awesome</motion.span>
+                                            </div>
+                                            <span className="text-sm text-secondary">Loading activity...</span>
+                                        </div>
                                     </td>
                                 </tr>
                             )}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import interviewService from '../../../services/interview.service';
+import LoadingSpinner from '../../../components/ui/LoadingSpinner';
 
 const ATSBuilder = () => {
     const [reports, setReports] = useState([]);
@@ -39,11 +40,7 @@ const ATSBuilder = () => {
     };
 
     if (loading) {
-        return (
-            <div className="flex flex-col items-center justify-center min-h-[400px]">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-            </div>
-        );
+        return <LoadingSpinner message="Loading your resumes..." />;
     }
 
     return (

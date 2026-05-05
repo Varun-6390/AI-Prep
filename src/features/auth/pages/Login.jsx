@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import LoadingSpinner from '../../../components/ui/LoadingSpinner';
 import { Mail, Lock, Eye, EyeOff, ArrowRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router';
 import { useAuth } from '../hooks/useAuth';
+import Logo from '../../../components/ui/Logo';
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -19,7 +21,7 @@ const Login = () => {
 
     if(loading)
         {
-            return (<main><h1>Loading.....</h1></main>)
+            return <LoadingSpinner message="Signing you in..." />
         }
 
     return (
@@ -32,17 +34,13 @@ const Login = () => {
                 <div className="absolute bottom-[-10%] left-[20%] w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-[100px] opacity-15"></div>
 
                 <div className="relative z-10 flex flex-col items-center justify-center p-12 text-center h-full">
-                    <div className="mb-8 p-4 bg-white/50 rounded-2xl backdrop-blur-md border border-gray-100 shadow-sm">
-                        {/* Logo vector */}
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-16 h-16 text-primary mb-2">
-                            <path d="M21 16V8C21 6.89543 20.1046 6 19 6H5C3.89543 6 3 6.89543 3 8V16C3 17.1046 3.89543 18 5 18H19C20.1046 18 21 17.1046 21 16Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            <path d="M3 8L12 13L21 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
+                    <div className="mb-8 p-4 bg-white/50 rounded-2xl backdrop-blur-md border border-gray-100 shadow-sm scale-150">
+                        <Logo withText={false} className="w-16 h-16" />
                     </div>
                     <h1 className="text-4xl font-bold font-display mb-4 tracking-tight text-on-surface">Welcome Back</h1>
                     <p className="text-gray-600 text-lg max-w-md leading-relaxed font-sans">
-                        Resume Builder helps you create professional resumes quickly.
-                        Sign in to access your saved templates and settings.
+                        AI-prep helps you master your interviews with AI-powered feedback.
+                        Sign in to access your dashboard and prep plans.
                     </p>
                 </div>
             </div>
@@ -51,11 +49,8 @@ const Login = () => {
             <div className="flex-1 flex flex-col justify-center px-4 sm:px-12 lg:px-24 xl:px-32 bg-surface relative">
                 <div className="mx-auto w-full max-w-md">
                     {/* Logo for mobile */}
-                    <div className="flex items-center gap-2 mb-10 lg:hidden text-primary">
-                        <div className="p-2 bg-primary/10 rounded-xl border border-primary/20">
-                            <Mail className="w-6 h-6" />
-                        </div>
-                        <span className="text-xl font-bold font-display text-on-surface">Resume Builder</span>
+                    <div className="mb-10 lg:hidden">
+                        <Logo />
                     </div>
 
                     <div className="mb-10 lg:mb-12">

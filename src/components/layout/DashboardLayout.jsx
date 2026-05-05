@@ -2,11 +2,25 @@ import React from 'react';
 import { Outlet, Link, useLocation } from 'react-router';
 import { useAuth } from '../../features/auth/hooks/useAuth';
 import interviewService from '../../services/interview.service';
+import Logo from '../ui/Logo';
 
 const DashboardLayout = () => {
     const { user, handleLogout } = useAuth();
     const location = useLocation();
     const [latestId, setLatestId] = React.useState(null);
+    const [profileOpen, setProfileOpen] = React.useState(false);
+    const profileRef = React.useRef(null);
+
+    // Close dropdown when clicking outside
+    React.useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (profileRef.current && !profileRef.current.contains(e.target)) {
+                setProfileOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     React.useEffect(() => {
         const fetchLatest = async () => {
@@ -79,19 +93,36 @@ const DashboardLayout = () => {
             <main className="flex-1 flex flex-col min-w-0 overflow-hidden relative pb-[80px] md:pb-0">
                 {/* TopAppBar */}
                 <header className="flex justify-between items-center w-full px-6 h-16 max-w-full docked full-width top-0 border-b border-slate-100 dark:border-slate-800 shadow-sm dark:shadow-none bg-white dark:bg-slate-950 font-manrope antialiased z-10 shrink-0 sticky top-0">
-                    <div className="flex items-center gap-sm">
-                        <span className="material-symbols-outlined text-blue-600 dark:text-blue-500 text-[24px]" data-icon="smart_toy">smart_toy</span>
-                        <span className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50">Career Catalyst</span>
-                    </div>
+                    <Logo className="w-9 h-9" />
                     <div className="flex items-center gap-md">
                         {/* Search Input */}
                         <div className="hidden sm:flex relative">
                             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[20px]" data-icon="search">search</span>
                             <input className="pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-full font-body-sm text-body-sm text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-64 transition-all" placeholder="Search resources..." type="text"/>
                         </div>
-                        {/* Trailing Avatar */}
-                        <div className="w-9 h-9 rounded-full border border-surface-variant cursor-pointer hover:opacity-80 transition-opacity flex items-center justify-center bg-primary-container text-on-primary-container text-sm font-bold">
-                            {user?.username?.charAt(0).toUpperCase() || 'U'}
+                        {/* Trailing Avatar with Dropdown */}
+                        <div className="relative" ref={profileRef}>
+                            <div
+                                onClick={() => setProfileOpen(prev => !prev)}
+                                className="w-9 h-9 rounded-full border border-surface-variant cursor-pointer hover:opacity-80 transition-opacity flex items-center justify-center bg-primary-container text-on-primary-container text-sm font-bold select-none"
+                            >
+                                {user?.username?.charAt(0).toUpperCase() || 'U'}
+                            </div>
+                            {profileOpen && (
+                                <div className="absolute right-0 mt-2 w-52 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl shadow-lg py-2 z-50 animate-in fade-in">
+                                    <div className="px-4 py-2 border-b border-slate-100 dark:border-slate-800">
+                                        <p className="text-sm font-semibold text-slate-900 dark:text-slate-50 truncate">{user?.username || 'User'}</p>
+                                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Signed in</p>
+                                    </div>
+                                    <button
+                                        onClick={() => { setProfileOpen(false); handleLogout(); }}
+                                        className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors text-left"
+                                    >
+                                        <span className="material-symbols-outlined text-[18px]">logout</span>
+                                        Log out
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </header>
@@ -124,6 +155,7 @@ const DashboardLayout = () => {
                     <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: location.pathname === '/ats' ? "'FILL' 1" : "'FILL' 0" }}>edit_document</span>
                     <span className="mt-1">Builder</span>
                 </Link>
+
             </nav>
         </div>
     );

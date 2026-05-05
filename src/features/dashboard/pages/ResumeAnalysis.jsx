@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router';
 import interviewService from '../../../services/interview.service';
+import LoadingSpinner from '../../../components/ui/LoadingSpinner';
 
 const ResumeAnalysis = () => {
     const { id } = useParams();
@@ -23,12 +24,7 @@ const ResumeAnalysis = () => {
     }, [id]);
 
     if (loading) {
-        return (
-            <div className="flex flex-col items-center justify-center min-h-[400px] space-y-md">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-                <p className="font-body-lg text-secondary">Loading your analysis...</p>
-            </div>
-        );
+        return <LoadingSpinner message="Loading your analysis..." />;
     }
 
     if (error || !report) {
