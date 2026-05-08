@@ -54,8 +54,8 @@ const DashboardLayout = () => {
 
                 {/* Navigation Links */}
                 <div className="flex flex-col gap-2 flex-1">
-                    <Link to="/" className={`flex items-center gap-sm px-4 py-3 rounded-lg font-manrope text-sm font-medium hover:translate-x-1 duration-200 ${location.pathname === '/' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-r-4 border-blue-600' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900'}`}>
-                        <span className={`material-symbols-outlined text-[20px] ${location.pathname === '/' ? 'fill-icon' : ''}`} data-icon="grid_view" style={{ fontVariationSettings: location.pathname === '/' ? "'FILL' 1" : "'FILL' 0" }}>grid_view</span>
+                    <Link to="/dashboard" className={`flex items-center gap-sm px-4 py-3 rounded-lg font-manrope text-sm font-medium hover:translate-x-1 duration-200 ${location.pathname === '/dashboard' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-r-4 border-blue-600' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900'}`}>
+                        <span className={`material-symbols-outlined text-[20px] ${location.pathname === '/dashboard' ? 'fill-icon' : ''}`} data-icon="grid_view" style={{ fontVariationSettings: location.pathname === '/dashboard' ? "'FILL' 1" : "'FILL' 0" }}>grid_view</span>
                         Dashboard
                     </Link>
                     <Link to="/analysis/new" className={`flex items-center gap-sm px-4 py-3 rounded-lg font-manrope text-sm font-medium hover:translate-x-1 duration-200 ${location.pathname === '/analysis/new' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-r-4 border-blue-600' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900'}`}>
@@ -135,8 +135,8 @@ const DashboardLayout = () => {
 
             {/* BottomNavBar (Mobile Only) */}
             <nav className="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-safe pt-2 bg-white/80 dark:bg-slate-900/90 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 shadow-[0_-2px_10px_rgba(0,0,0,0.05)] rounded-t-none font-manrope text-[10px] font-semibold uppercase tracking-wider">
-                <Link to="/" className={`flex flex-col items-center justify-center rounded-xl px-3 py-1 scale-90 duration-150 ${location.pathname === '/' ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' : 'text-slate-500 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-300'}`}>
-                    <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: location.pathname === '/' ? "'FILL' 1" : "'FILL' 0" }}>dashboard</span>
+                <Link to="/dashboard" className={`flex flex-col items-center justify-center rounded-xl px-3 py-1 scale-90 duration-150 ${location.pathname === '/dashboard' ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' : 'text-slate-500 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-300'}`}>
+                    <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: location.pathname === '/dashboard' ? "'FILL' 1" : "'FILL' 0" }}>dashboard</span>
                     <span className="mt-1">Home</span>
                 </Link>
                 <Link to="/analysis/new" className={`flex flex-col items-center justify-center rounded-xl px-3 py-1 scale-90 duration-150 ${location.pathname === '/analysis/new' ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' : 'text-slate-500 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-300'}`}>

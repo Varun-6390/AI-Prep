@@ -1,4 +1,4 @@
-import {createBrowserRouter} from "react-router";
+import { createBrowserRouter } from "react-router";
 import Login from "./features/auth/pages/Login";
 import Register from "./features/auth/pages/Register";
 import Protected from "./features/auth/components/Protected";
@@ -9,19 +9,26 @@ import ResumeAnalysis from "./features/dashboard/pages/ResumeAnalysis";
 import QuestionGenerator from "./features/dashboard/pages/QuestionGenerator";
 import PreparationPlan from "./features/dashboard/pages/PreparationPlan";
 import ATSBuilder from "./features/dashboard/pages/ATSBuilder";
+import AiInterviewLandingPage from "./features/auth/pages/AiInterviewLandingPage";
+
 
 export const router = createBrowserRouter([
+
+    {
+        path: "/",
+        element: <AiInterviewLandingPage />
+    },
     {
         path: "/login",
-        element:<Login />
+        element: <Login />
     },
     {
-        path:"/register",
-        element:<Register />
+        path: "/register",
+        element: <Register />
     },
     {
-        path:"/",
-        element:<Protected><DashboardLayout /></Protected>,
+        path: "/dashboard",
+        element: <Protected><DashboardLayout /></Protected>,
         children: [
             {
                 index: true,
