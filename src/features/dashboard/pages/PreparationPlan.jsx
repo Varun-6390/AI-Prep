@@ -32,7 +32,7 @@ const PreparationPlan = () => {
             <div className="bg-error-container text-on-error-container p-lg rounded-xl flex flex-col items-center space-y-md">
                 <span className="material-symbols-outlined text-[48px]">error</span>
                 <p className="font-h3 text-h3">{error || 'Plan not found.'}</p>
-                <Link to="/analysis/new" className="bg-primary text-on-primary px-lg py-sm rounded-full">Try Again</Link>
+                <Link to="/dashboard/analysis/new" className="bg-primary text-on-primary px-lg py-sm rounded-full">Try Again</Link>
             </div>
         );
     }

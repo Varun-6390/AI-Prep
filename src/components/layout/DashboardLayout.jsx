@@ -58,20 +58,20 @@ const DashboardLayout = () => {
                         <span className={`material-symbols-outlined text-[20px] ${location.pathname === '/dashboard' ? 'fill-icon' : ''}`} data-icon="grid_view" style={{ fontVariationSettings: location.pathname === '/dashboard' ? "'FILL' 1" : "'FILL' 0" }}>grid_view</span>
                         Dashboard
                     </Link>
-                    <Link to="/analysis/new" className={`flex items-center gap-sm px-4 py-3 rounded-lg font-manrope text-sm font-medium hover:translate-x-1 duration-200 ${location.pathname === '/analysis/new' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-r-4 border-blue-600' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900'}`}>
-                        <span className={`material-symbols-outlined text-[20px] ${location.pathname === '/analysis/new' ? 'fill-icon' : ''}`} data-icon="troubleshoot" style={{ fontVariationSettings: location.pathname === '/analysis/new' ? "'FILL' 1" : "'FILL' 0" }}>troubleshoot</span>
+                    <Link to="/dashboard/analysis/new" className={`flex items-center gap-sm px-4 py-3 rounded-lg font-manrope text-sm font-medium hover:translate-x-1 duration-200 ${location.pathname === '/dashboard/analysis/new' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-r-4 border-blue-600' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900'}`}>
+                        <span className={`material-symbols-outlined text-[20px] ${location.pathname === '/dashboard/analysis/new' ? 'fill-icon' : ''}`} data-icon="troubleshoot" style={{ fontVariationSettings: location.pathname === '/dashboard/analysis/new' ? "'FILL' 1" : "'FILL' 0" }}>troubleshoot</span>
                         Resume Analysis
                     </Link>
-                    <Link to={latestId ? `/questions/${latestId}` : '/analysis/new'} className={`flex items-center gap-sm px-4 py-3 rounded-lg font-manrope text-sm font-medium hover:translate-x-1 duration-200 ${location.pathname.startsWith('/questions') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-r-4 border-blue-600' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900'}`}>
-                        <span className={`material-symbols-outlined text-[20px] ${location.pathname.startsWith('/questions') ? 'fill-icon' : ''}`} data-icon="quiz" style={{ fontVariationSettings: location.pathname.startsWith('/questions') ? "'FILL' 1" : "'FILL' 0" }}>quiz</span>
+                    <Link to={latestId ? `/dashboard/questions/${latestId}` : '/dashboard/analysis/new'} className={`flex items-center gap-sm px-4 py-3 rounded-lg font-manrope text-sm font-medium hover:translate-x-1 duration-200 ${location.pathname.startsWith('/dashboard/questions') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-r-4 border-blue-600' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900'}`}>
+                        <span className={`material-symbols-outlined text-[20px] ${location.pathname.startsWith('/dashboard/questions') ? 'fill-icon' : ''}`} data-icon="quiz" style={{ fontVariationSettings: location.pathname.startsWith('/dashboard/questions') ? "'FILL' 1" : "'FILL' 0" }}>quiz</span>
                         Question Gen
                     </Link>
-                    <Link to={latestId ? `/prep-plan/${latestId}` : '/analysis/new'} className={`flex items-center gap-sm px-4 py-3 rounded-lg font-manrope text-sm font-medium hover:translate-x-1 duration-200 ${location.pathname.startsWith('/prep-plan') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-r-4 border-blue-600' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900'}`}>
-                        <span className={`material-symbols-outlined text-[20px] ${location.pathname.startsWith('/prep-plan') ? 'fill-icon' : ''}`} data-icon="checklist_rtl" style={{ fontVariationSettings: location.pathname.startsWith('/prep-plan') ? "'FILL' 1" : "'FILL' 0" }}>checklist_rtl</span>
+                    <Link to={latestId ? `/dashboard/prep-plan/${latestId}` : '/dashboard/analysis/new'} className={`flex items-center gap-sm px-4 py-3 rounded-lg font-manrope text-sm font-medium hover:translate-x-1 duration-200 ${location.pathname.startsWith('/dashboard/prep-plan') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-r-4 border-blue-600' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900'}`}>
+                        <span className={`material-symbols-outlined text-[20px] ${location.pathname.startsWith('/dashboard/prep-plan') ? 'fill-icon' : ''}`} data-icon="checklist_rtl" style={{ fontVariationSettings: location.pathname.startsWith('/dashboard/prep-plan') ? "'FILL' 1" : "'FILL' 0" }}>checklist_rtl</span>
                         Prep Plan
                     </Link>
-                    <Link to="/ats" className={`flex items-center gap-sm px-4 py-3 rounded-lg font-manrope text-sm font-medium hover:translate-x-1 duration-200 ${location.pathname === '/ats' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-r-4 border-blue-600' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900'}`}>
-                        <span className={`material-symbols-outlined text-[20px] ${location.pathname === '/ats' ? 'fill-icon' : ''}`} data-icon="architecture" style={{ fontVariationSettings: location.pathname === '/ats' ? "'FILL' 1" : "'FILL' 0" }}>architecture</span>
+                    <Link to="/dashboard/ats" className={`flex items-center gap-sm px-4 py-3 rounded-lg font-manrope text-sm font-medium hover:translate-x-1 duration-200 ${location.pathname === '/dashboard/ats' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-r-4 border-blue-600' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900'}`}>
+                        <span className={`material-symbols-outlined text-[20px] ${location.pathname === '/dashboard/ats' ? 'fill-icon' : ''}`} data-icon="architecture" style={{ fontVariationSettings: location.pathname === '/dashboard/ats' ? "'FILL' 1" : "'FILL' 0" }}>architecture</span>
                         ATS Builder
                     </Link>
                 </div>
@@ -139,20 +139,20 @@ const DashboardLayout = () => {
                     <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: location.pathname === '/dashboard' ? "'FILL' 1" : "'FILL' 0" }}>dashboard</span>
                     <span className="mt-1">Home</span>
                 </Link>
-                <Link to="/analysis/new" className={`flex flex-col items-center justify-center rounded-xl px-3 py-1 scale-90 duration-150 ${location.pathname === '/analysis/new' ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' : 'text-slate-500 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-300'}`}>
-                    <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: location.pathname === '/analysis/new' ? "'FILL' 1" : "'FILL' 0" }}>analytics</span>
+                <Link to="/dashboard/analysis/new" className={`flex flex-col items-center justify-center rounded-xl px-3 py-1 scale-90 duration-150 ${location.pathname === '/dashboard/analysis/new' ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' : 'text-slate-500 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-300'}`}>
+                    <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: location.pathname === '/dashboard/analysis/new' ? "'FILL' 1" : "'FILL' 0" }}>analytics</span>
                     <span className="mt-1">Analyze</span>
                 </Link>
-                <Link to={latestId ? `/questions/${latestId}` : '/analysis/new'} className={`flex flex-col items-center justify-center rounded-xl px-3 py-1 scale-90 duration-150 ${location.pathname.startsWith('/questions') ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' : 'text-slate-500 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-300'}`}>
-                    <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: location.pathname.startsWith('/questions') ? "'FILL' 1" : "'FILL' 0" }}>psychology</span>
+                <Link to={latestId ? `/dashboard/questions/${latestId}` : '/dashboard/analysis/new'} className={`flex flex-col items-center justify-center rounded-xl px-3 py-1 scale-90 duration-150 ${location.pathname.startsWith('/dashboard/questions') ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' : 'text-slate-500 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-300'}`}>
+                    <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: location.pathname.startsWith('/dashboard/questions') ? "'FILL' 1" : "'FILL' 0" }}>psychology</span>
                     <span className="mt-1">Questions</span>
                 </Link>
-                <Link to={latestId ? `/prep-plan/${latestId}` : '/analysis/new'} className={`flex flex-col items-center justify-center rounded-xl px-3 py-1 scale-90 duration-150 ${location.pathname.startsWith('/prep-plan') ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' : 'text-slate-500 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-300'}`}>
-                    <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: location.pathname.startsWith('/prep-plan') ? "'FILL' 1" : "'FILL' 0" }}>event_note</span>
+                <Link to={latestId ? `/dashboard/prep-plan/${latestId}` : '/dashboard/analysis/new'} className={`flex flex-col items-center justify-center rounded-xl px-3 py-1 scale-90 duration-150 ${location.pathname.startsWith('/dashboard/prep-plan') ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' : 'text-slate-500 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-300'}`}>
+                    <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: location.pathname.startsWith('/dashboard/prep-plan') ? "'FILL' 1" : "'FILL' 0" }}>event_note</span>
                     <span className="mt-1">Plan</span>
                 </Link>
-                <Link to="/ats" className={`flex flex-col items-center justify-center rounded-xl px-3 py-1 scale-90 duration-150 ${location.pathname === '/ats' ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' : 'text-slate-500 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-300'}`}>
-                    <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: location.pathname === '/ats' ? "'FILL' 1" : "'FILL' 0" }}>edit_document</span>
+                <Link to="/dashboard/ats" className={`flex flex-col items-center justify-center rounded-xl px-3 py-1 scale-90 duration-150 ${location.pathname === '/dashboard/ats' ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' : 'text-slate-500 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-300'}`}>
+                    <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: location.pathname === '/dashboard/ats' ? "'FILL' 1" : "'FILL' 0" }}>edit_document</span>
                     <span className="mt-1">Builder</span>
                 </Link>
 

@@ -34,7 +34,7 @@ const NewAnalysis = () => {
 
             const result = await interviewService.generateReport(formData);
             if (result.interviewReport?._id) {
-                navigate(`/analysis/${result.interviewReport._id}`);
+                navigate(`/dashboard/analysis/${result.interviewReport._id}`);
             }
         } catch (err) {
             setError(err.response?.data?.message || 'Failed to generate analysis. Please try again.');

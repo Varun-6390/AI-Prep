@@ -67,7 +67,7 @@ const Dashboard = () => {
                     <h3 className="font-h3 text-[20px] text-on-background mb-md">Quick Actions</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-md flex-1">
                         {/* Action: Upload Resume */}
-                        <Link to="/analysis/new" className="border-2 border-dashed border-primary-fixed-dim rounded-lg bg-surface-container-low flex flex-col items-center justify-center p-md text-center hover:bg-primary-fixed transition-colors cursor-pointer group">
+                        <Link to="/dashboard/analysis/new" className="border-2 border-dashed border-primary-fixed-dim rounded-lg bg-surface-container-low flex flex-col items-center justify-center p-md text-center hover:bg-primary-fixed transition-colors cursor-pointer group">
                             <div className="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center mb-sm group-hover:scale-110 transition-transform">
                                 <span className="material-symbols-outlined text-[24px]" data-icon="upload_file">upload_file</span>
                             </div>
@@ -76,7 +76,7 @@ const Dashboard = () => {
                         </Link>
                         
                         {/* Action: Generate Questions */}
-                        <Link to="/analysis/new" className="border border-outline-variant rounded-lg bg-surface-container-lowest flex flex-col items-start justify-center p-md hover:shadow-md transition-shadow cursor-pointer relative overflow-hidden">
+                        <Link to="/dashboard/analysis/new" className="border border-outline-variant rounded-lg bg-surface-container-lowest flex flex-col items-start justify-center p-md hover:shadow-md transition-shadow cursor-pointer relative overflow-hidden">
                             <div className="absolute right-0 top-0 opacity-5 -translate-y-4 translate-x-4">
                                 <span className="material-symbols-outlined text-[120px]" data-icon="psychology">psychology</span>
                             </div>
@@ -110,7 +110,7 @@ const Dashboard = () => {
                             {reports.map((report) => (
                                 <tr key={report._id} className="border-b border-outline-variant last:border-0 hover:bg-surface-container-lowest transition-colors">
                                     <td className="py-4 px-md">
-                                        <Link to={`/analysis/${report._id}`} className="flex items-center gap-sm hover:text-primary transition-colors">
+                                        <Link to={`/dashboard/analysis/${report._id}`} className="flex items-center gap-sm hover:text-primary transition-colors">
                                             <span className="material-symbols-outlined text-secondary" data-icon="description">description</span>
                                             Resume Analysis
                                         </Link>
