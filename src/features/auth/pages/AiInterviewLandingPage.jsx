@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const ANIM_INITIAL = { filter: "blur(10px)", opacity: 0, y: 20 };
 const ANIM_TRANSITION = { duration: 0.85, ease: "easeOut" };
@@ -174,29 +174,97 @@ function BlurText({ text, className }) {
 }
 
 function Navbar() {
-  const links = ["Dashboard", "Resume Analysis", "Question Gen", "Prep Plan", "ATS Builder"];
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const links = [
+    { name: "Dashboard", href: "/dashboard" },
+    { name: "Resume Analysis", href: "/dashboard/analysis/new" },
+    { name: "ATS Builder", href: "/dashboard/ats" },
+  ];
+
   return (
-    <nav className="fixed inset-x-0 top-4 z-50 px-8 lg:px-16">
-      <div className="mx-auto flex max-w-[1400px] items-center justify-between">
-        <div className="liquid-glass flex h-12 w-12 items-center justify-center rounded-full">
-          <span className="font-heading text-3xl italic leading-none text-white">i</span>
+    <nav className="fixed inset-x-0 top-6 z-50 flex justify-center px-6">
+      <div className="liquid-glass flex items-center gap-2 rounded-full p-1.5 shadow-2xl backdrop-blur-xl border border-white/10">
+        <a href="/" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-colors ml-1">
+          <span className="font-heading text-2xl italic leading-none text-white">i</span>
+        </a>
+        
+        {/* Desktop Menu */}
+        <div className="hidden items-center md:flex px-2">
+          {links.map((link) => (
+            <a 
+              key={link.name} 
+              href={link.href} 
+              className="px-4 py-2 text-sm font-medium text-white/80 font-body hover:text-white transition-colors"
+            >
+              {link.name}
+            </a>
+          ))}
         </div>
-        <div className="hidden items-center gap-2 md:flex">
-          <div className="liquid-glass flex items-center rounded-full px-1.5 py-1.5">
-            <a href="/dashboard" className="px-3 py-2 text-sm font-medium text-white/90 font-body">Dashboard</a>
-            <a href="/dashboard/analysis/new" className="px-3 py-2 text-sm font-medium text-white/90 font-body">Resume Analysis</a>
-            <a href="/dashboard/ats" className="px-3 py-2 text-sm font-medium text-white/90 font-body">ATS Builder</a>
-          </div>
+
+        <div className="flex items-center gap-1">
           <a
             href="/login"
-            className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-black whitespace-nowrap"
+            className="hidden sm:inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-black whitespace-nowrap transition-transform hover:scale-105 active:scale-95"
           >
             Get Started
             <ArrowUpRightIcon className="h-4 w-4" />
           </a>
+
+          {/* Mobile Menu Toggle */}
+          <button 
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="flex h-10 w-10 items-center justify-center rounded-full md:hidden text-white hover:bg-white/5 transition-colors"
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5">
+                <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5">
+                <path d="M4 6h16M4 12h16M4 18h16" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            )}
+          </button>
         </div>
-        <div className="h-12 w-12 opacity-0" aria-hidden="true"></div>
       </div>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            className="absolute inset-x-6 top-20 z-40 md:hidden"
+          >
+            <div className="liquid-glass-strong rounded-3xl p-6 shadow-2xl backdrop-blur-2xl border border-white/10">
+              <div className="flex flex-col gap-4">
+                {links.map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    className="text-xl font-heading italic text-white/90 hover:text-white transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {link.name}
+                  </a>
+                ))}
+                <div className="mt-4 border-t border-white/10 pt-6">
+                  <a
+                    href="/login"
+                    className="flex w-full items-center justify-center gap-2 rounded-full bg-white px-6 py-4 text-lg font-medium text-black shadow-xl"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Get Started
+                    <ArrowUpRightIcon className="h-5 w-5" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }
@@ -522,7 +590,7 @@ function Footer() {
         
         <div className="mt-20 flex flex-col items-center justify-between gap-6 border-t border-white/10 pt-8 md:flex-row">
           <p className="text-xs font-body font-light text-white/30">
-            © {new Date().getFullYear()} Ai Interview Platform. Elevated intelligence for your career.
+            © {new Date().getFullYear()} Ai Interview Platform. Developed by <span className="text-white/60 font-medium">Varun</span>. Elevated intelligence for your career.
           </p>
           <div className="flex gap-8 text-[11px] font-body font-light text-white/30 tracking-wider uppercase">
             <a href="#" className="hover:text-white transition-colors">Security</a>

@@ -1,14 +1,68 @@
 import React from 'react';
 import { Outlet, Link, useLocation } from 'react-router';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../../features/auth/hooks/useAuth';
 import interviewService from '../../services/interview.service';
 import Logo from '../ui/Logo';
+
+const SidebarContent = ({ latestId, user, handleLogout, location, onItemClick }) => (
+    <>
+        {/* Header Profile Layout */}
+        <div className="flex items-center gap-sm mb-lg px-2">
+            <div className="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center bg-primary-container text-on-primary-container text-xl font-bold">
+                {user?.username?.charAt(0).toUpperCase() || 'U'}
+            </div>
+            <div>
+                <h3 className="font-h3 text-[18px] font-bold text-on-surface">{user?.username || 'User'}</h3>
+                <p className="font-body-sm text-body-sm text-secondary">Interview Ready</p>
+                <span className="inline-block mt-1 bg-primary-fixed text-on-primary-fixed font-label-caps text-label-caps px-2 py-0.5 rounded-full">Pro Plan</span>
+            </div>
+        </div>
+
+        {/* Navigation Links */}
+        <div className="flex flex-col gap-2 flex-1">
+            <Link to="/dashboard" onClick={onItemClick} className={`flex items-center gap-sm px-4 py-3 rounded-lg font-manrope text-sm font-medium hover:translate-x-1 duration-200 ${location.pathname === '/dashboard' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-r-4 border-blue-600' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900'}`}>
+                <span className={`material-symbols-outlined text-[20px] ${location.pathname === '/dashboard' ? 'fill-icon' : ''}`} data-icon="grid_view" style={{ fontVariationSettings: location.pathname === '/dashboard' ? "'FILL' 1" : "'FILL' 0" }}>grid_view</span>
+                Dashboard
+            </Link>
+            <Link to="/dashboard/analysis/new" onClick={onItemClick} className={`flex items-center gap-sm px-4 py-3 rounded-lg font-manrope text-sm font-medium hover:translate-x-1 duration-200 ${location.pathname === '/dashboard/analysis/new' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-r-4 border-blue-600' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900'}`}>
+                <span className={`material-symbols-outlined text-[20px] ${location.pathname === '/dashboard/analysis/new' ? 'fill-icon' : ''}`} data-icon="troubleshoot" style={{ fontVariationSettings: location.pathname === '/dashboard/analysis/new' ? "'FILL' 1" : "'FILL' 0" }}>troubleshoot</span>
+                Resume Analysis
+            </Link>
+            <Link to={latestId ? `/dashboard/questions/${latestId}` : '/dashboard/analysis/new'} onClick={onItemClick} className={`flex items-center gap-sm px-4 py-3 rounded-lg font-manrope text-sm font-medium hover:translate-x-1 duration-200 ${location.pathname.startsWith('/dashboard/questions') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-r-4 border-blue-600' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900'}`}>
+                <span className={`material-symbols-outlined text-[20px] ${location.pathname.startsWith('/dashboard/questions') ? 'fill-icon' : ''}`} data-icon="quiz" style={{ fontVariationSettings: location.pathname.startsWith('/dashboard/questions') ? "'FILL' 1" : "'FILL' 0" }}>quiz</span>
+                Question Gen
+            </Link>
+            <Link to={latestId ? `/dashboard/prep-plan/${latestId}` : '/dashboard/analysis/new'} onClick={onItemClick} className={`flex items-center gap-sm px-4 py-3 rounded-lg font-manrope text-sm font-medium hover:translate-x-1 duration-200 ${location.pathname.startsWith('/dashboard/prep-plan') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-r-4 border-blue-600' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900'}`}>
+                <span className={`material-symbols-outlined text-[20px] ${location.pathname.startsWith('/dashboard/prep-plan') ? 'fill-icon' : ''}`} data-icon="checklist_rtl" style={{ fontVariationSettings: location.pathname.startsWith('/dashboard/prep-plan') ? "'FILL' 1" : "'FILL' 0" }}>checklist_rtl</span>
+                Prep Plan
+            </Link>
+            <Link to="/dashboard/ats" onClick={onItemClick} className={`flex items-center gap-sm px-4 py-3 rounded-lg font-manrope text-sm font-medium hover:translate-x-1 duration-200 ${location.pathname === '/dashboard/ats' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-r-4 border-blue-600' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900'}`}>
+                <span className={`material-symbols-outlined text-[20px] ${location.pathname === '/dashboard/ats' ? 'fill-icon' : ''}`} data-icon="architecture" style={{ fontVariationSettings: location.pathname === '/dashboard/ats' ? "'FILL' 1" : "'FILL' 0" }}>architecture</span>
+                ATS Builder
+            </Link>
+        </div>
+
+        {/* Bottom Settings */}
+        <div className="mt-auto pt-4 border-t border-outline-variant flex flex-col gap-2">
+            <Link to="/settings" onClick={onItemClick} className={`flex items-center gap-sm px-4 py-3 rounded-lg font-manrope text-sm font-medium hover:translate-x-1 duration-200 ${location.pathname === '/settings' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-r-4 border-blue-600' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900'}`}>
+                <span className={`material-symbols-outlined text-[20px] ${location.pathname === '/settings' ? 'fill-icon' : ''}`} data-icon="settings" style={{ fontVariationSettings: location.pathname === '/settings' ? "'FILL' 1" : "'FILL' 0" }}>settings</span>
+                Settings
+            </Link>
+            <button onClick={() => { handleLogout(); onItemClick?.(); }} className="flex items-center gap-sm px-4 py-3 rounded-lg text-error hover:bg-error-container hover:text-on-error-container font-manrope text-sm font-medium hover:translate-x-1 duration-200 w-full text-left">
+                <span className="material-symbols-outlined text-[20px]" data-icon="logout">logout</span>
+                Log out
+            </button>
+        </div>
+    </>
+);
 
 const DashboardLayout = () => {
     const { user, handleLogout } = useAuth();
     const location = useLocation();
     const [latestId, setLatestId] = React.useState(null);
     const [profileOpen, setProfileOpen] = React.useState(false);
+    const [sidebarOpen, setSidebarOpen] = React.useState(false);
     const profileRef = React.useRef(null);
 
     // Close dropdown when clicking outside
@@ -38,62 +92,54 @@ const DashboardLayout = () => {
 
     return (
         <div className="bg-background text-on-background font-body-md text-body-md flex h-screen overflow-hidden antialiased">
-            {/* NavigationDrawer (Sidebar) - Hidden on Mobile */}
+            {/* Desktop Sidebar */}
             <nav className="hidden md:flex flex-col h-full py-8 px-4 bg-slate-50 dark:bg-slate-950 w-72 rounded-r-lg border-r border-slate-200 dark:border-slate-800 shadow-xl shrink-0 z-20">
-                {/* Header Profile Layout */}
-                <div className="flex items-center gap-sm mb-lg px-2">
-                    <div className="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center bg-primary-container text-on-primary-container text-xl font-bold">
-                        {user?.username?.charAt(0).toUpperCase() || 'U'}
-                    </div>
-                    <div>
-                        <h3 className="font-h3 text-[18px] font-bold text-on-surface">{user?.username || 'User'}</h3>
-                        <p className="font-body-sm text-body-sm text-secondary">Interview Ready</p>
-                        <span className="inline-block mt-1 bg-primary-fixed text-on-primary-fixed font-label-caps text-label-caps px-2 py-0.5 rounded-full">Pro Plan</span>
-                    </div>
-                </div>
-
-                {/* Navigation Links */}
-                <div className="flex flex-col gap-2 flex-1">
-                    <Link to="/dashboard" className={`flex items-center gap-sm px-4 py-3 rounded-lg font-manrope text-sm font-medium hover:translate-x-1 duration-200 ${location.pathname === '/dashboard' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-r-4 border-blue-600' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900'}`}>
-                        <span className={`material-symbols-outlined text-[20px] ${location.pathname === '/dashboard' ? 'fill-icon' : ''}`} data-icon="grid_view" style={{ fontVariationSettings: location.pathname === '/dashboard' ? "'FILL' 1" : "'FILL' 0" }}>grid_view</span>
-                        Dashboard
-                    </Link>
-                    <Link to="/dashboard/analysis/new" className={`flex items-center gap-sm px-4 py-3 rounded-lg font-manrope text-sm font-medium hover:translate-x-1 duration-200 ${location.pathname === '/dashboard/analysis/new' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-r-4 border-blue-600' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900'}`}>
-                        <span className={`material-symbols-outlined text-[20px] ${location.pathname === '/dashboard/analysis/new' ? 'fill-icon' : ''}`} data-icon="troubleshoot" style={{ fontVariationSettings: location.pathname === '/dashboard/analysis/new' ? "'FILL' 1" : "'FILL' 0" }}>troubleshoot</span>
-                        Resume Analysis
-                    </Link>
-                    <Link to={latestId ? `/dashboard/questions/${latestId}` : '/dashboard/analysis/new'} className={`flex items-center gap-sm px-4 py-3 rounded-lg font-manrope text-sm font-medium hover:translate-x-1 duration-200 ${location.pathname.startsWith('/dashboard/questions') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-r-4 border-blue-600' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900'}`}>
-                        <span className={`material-symbols-outlined text-[20px] ${location.pathname.startsWith('/dashboard/questions') ? 'fill-icon' : ''}`} data-icon="quiz" style={{ fontVariationSettings: location.pathname.startsWith('/dashboard/questions') ? "'FILL' 1" : "'FILL' 0" }}>quiz</span>
-                        Question Gen
-                    </Link>
-                    <Link to={latestId ? `/dashboard/prep-plan/${latestId}` : '/dashboard/analysis/new'} className={`flex items-center gap-sm px-4 py-3 rounded-lg font-manrope text-sm font-medium hover:translate-x-1 duration-200 ${location.pathname.startsWith('/dashboard/prep-plan') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-r-4 border-blue-600' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900'}`}>
-                        <span className={`material-symbols-outlined text-[20px] ${location.pathname.startsWith('/dashboard/prep-plan') ? 'fill-icon' : ''}`} data-icon="checklist_rtl" style={{ fontVariationSettings: location.pathname.startsWith('/dashboard/prep-plan') ? "'FILL' 1" : "'FILL' 0" }}>checklist_rtl</span>
-                        Prep Plan
-                    </Link>
-                    <Link to="/dashboard/ats" className={`flex items-center gap-sm px-4 py-3 rounded-lg font-manrope text-sm font-medium hover:translate-x-1 duration-200 ${location.pathname === '/dashboard/ats' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-r-4 border-blue-600' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900'}`}>
-                        <span className={`material-symbols-outlined text-[20px] ${location.pathname === '/dashboard/ats' ? 'fill-icon' : ''}`} data-icon="architecture" style={{ fontVariationSettings: location.pathname === '/dashboard/ats' ? "'FILL' 1" : "'FILL' 0" }}>architecture</span>
-                        ATS Builder
-                    </Link>
-                </div>
-
-                {/* Bottom Settings */}
-                <div className="mt-auto pt-4 border-t border-outline-variant flex flex-col gap-2">
-                    <Link to="/settings" className={`flex items-center gap-sm px-4 py-3 rounded-lg font-manrope text-sm font-medium hover:translate-x-1 duration-200 ${location.pathname === '/settings' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-r-4 border-blue-600' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900'}`}>
-                        <span className={`material-symbols-outlined text-[20px] ${location.pathname === '/settings' ? 'fill-icon' : ''}`} data-icon="settings" style={{ fontVariationSettings: location.pathname === '/settings' ? "'FILL' 1" : "'FILL' 0" }}>settings</span>
-                        Settings
-                    </Link>
-                    <button onClick={handleLogout} className="flex items-center gap-sm px-4 py-3 rounded-lg text-error hover:bg-error-container hover:text-on-error-container font-manrope text-sm font-medium hover:translate-x-1 duration-200 w-full text-left">
-                        <span className="material-symbols-outlined text-[20px]" data-icon="logout">logout</span>
-                        Log out
-                    </button>
-                </div>
+                <SidebarContent latestId={latestId} user={user} handleLogout={handleLogout} location={location} />
             </nav>
+
+            {/* Mobile Sidebar (Drawer) */}
+            <AnimatePresence>
+                {sidebarOpen && (
+                    <>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setSidebarOpen(false)}
+                            className="fixed inset-0 bg-black/50 z-[60] md:hidden backdrop-blur-sm"
+                        />
+                        <motion.nav
+                            initial={{ x: '-100%' }}
+                            animate={{ x: 0 }}
+                            exit={{ x: '-100%' }}
+                            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                            className="fixed inset-y-0 left-0 w-72 bg-slate-50 dark:bg-slate-950 z-[70] md:hidden flex flex-col py-8 px-4 shadow-2xl"
+                        >
+                            <SidebarContent 
+                                latestId={latestId} 
+                                user={user} 
+                                handleLogout={handleLogout} 
+                                location={location} 
+                                onItemClick={() => setSidebarOpen(false)} 
+                            />
+                        </motion.nav>
+                    </>
+                )}
+            </AnimatePresence>
 
             {/* Main Content Area */}
             <main className="flex-1 flex flex-col min-w-0 overflow-hidden relative pb-[80px] md:pb-0">
                 {/* TopAppBar */}
-                <header className="flex justify-between items-center w-full px-6 h-16 max-w-full docked full-width top-0 border-b border-slate-100 dark:border-slate-800 shadow-sm dark:shadow-none bg-white dark:bg-slate-950 font-manrope antialiased z-10 shrink-0 sticky top-0">
-                    <Logo className="w-9 h-9" />
+                <header className="flex justify-between items-center w-full px-6 h-16 max-w-full docked full-width top-0 border-b border-slate-100 dark:border-slate-800 shadow-sm dark:shadow-none bg-white dark:bg-slate-950 font-manrope antialiased z-[50] shrink-0 sticky top-0">
+                    <div className="flex items-center gap-4">
+                        <button 
+                            onClick={() => setSidebarOpen(true)}
+                            className="md:hidden flex items-center justify-center w-10 h-10 rounded-full hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors"
+                        >
+                            <span className="material-symbols-outlined text-slate-600 dark:text-slate-400">menu</span>
+                        </button>
+                        <Logo className="w-9 h-9" />
+                    </div>
                     <div className="flex items-center gap-md">
                         {/* Search Input */}
                         <div className="hidden sm:flex relative">
