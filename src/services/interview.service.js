@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://ai-prep-backend-nr2p.onrender.com/api/interview";
+const API_URL = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api/interview` : "http://localhost:3000/api/interview";
 
 // Create an axios instance with withCredentials enabled
 const api = axios.create({
