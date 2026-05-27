@@ -46,8 +46,8 @@ const NewAnalysis = () => {
     return (
         <div className="max-w-container-max mx-auto space-y-lg">
             <header>
-                <h1 className="font-h1 text-h1 text-on-surface">New Analysis</h1>
-                <p className="font-body-lg text-body-lg text-secondary mt-xs">
+                <h1 className="font-h1 text-h1 text-on-surface dark:text-white transition-colors duration-200">New Analysis</h1>
+                <p className="font-body-lg text-body-lg text-secondary dark:text-slate-400 mt-xs transition-colors duration-200">
                     Get real-time feedback on your resume's ATS compatibility and generate custom interview questions.
                 </p>
             </header>
@@ -55,16 +55,16 @@ const NewAnalysis = () => {
             <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-2 gap-lg">
                 {/* Left Column: Upload */}
                 <div className="space-y-md">
-                    <div className="bg-surface border border-outline-variant rounded-xl p-md shadow-sm">
-                        <h3 className="font-h3 text-[20px] text-on-background mb-md">1. Upload Resume</h3>
+                    <div className="bg-surface dark:bg-slate-800 border border-outline-variant dark:border-slate-700 rounded-xl p-md shadow-sm transition-colors duration-200">
+                        <h3 className="font-h3 text-[20px] text-on-background dark:text-white mb-md">1. Upload Resume</h3>
                         <label 
                             className={`border-2 border-dashed rounded-lg p-xl flex flex-col items-center justify-center text-center cursor-pointer transition-all ${
-                                file ? 'border-primary bg-primary-fixed' : 'border-outline-variant hover:bg-surface-container-low'
+                                file ? 'border-primary bg-primary-fixed dark:bg-primary/20' : 'border-outline-variant dark:border-slate-600 hover:bg-surface-container-low dark:hover:bg-slate-700/50'
                             }`}
                         >
                             <input type="file" className="hidden" accept=".pdf" onChange={handleFileChange} />
                             <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-md ${
-                                file ? 'bg-primary text-on-primary' : 'bg-surface-container-high text-secondary'
+                                file ? 'bg-primary text-on-primary' : 'bg-surface-container-high dark:bg-slate-700 text-secondary dark:text-slate-400'
                             }`}>
                                 <span className="material-symbols-outlined text-[32px]">
                                     {file ? 'check_circle' : 'upload_file'}
@@ -72,22 +72,22 @@ const NewAnalysis = () => {
                             </div>
                             {file ? (
                                 <div>
-                                    <p className="font-button text-button text-on-surface">{file.name}</p>
-                                    <p className="font-body-sm text-body-sm text-secondary">Click to change file</p>
+                                    <p className="font-button text-button text-on-surface dark:text-white">{file.name}</p>
+                                    <p className="font-body-sm text-body-sm text-secondary dark:text-slate-400">Click to change file</p>
                                 </div>
                             ) : (
                                 <div>
-                                    <p className="font-button text-button text-on-surface">Click to upload or drag & drop</p>
-                                    <p className="font-body-sm text-body-sm text-secondary">Only PDF files are supported</p>
+                                    <p className="font-button text-button text-on-surface dark:text-white">Click to upload or drag & drop</p>
+                                    <p className="font-body-sm text-body-sm text-secondary dark:text-slate-400">Only PDF files are supported</p>
                                 </div>
                             )}
                         </label>
                     </div>
 
-                    <div className="bg-surface border border-outline-variant rounded-xl p-md shadow-sm">
-                        <h3 className="font-h3 text-[20px] text-on-background mb-md">2. Tell us about yourself (Optional)</h3>
+                    <div className="bg-surface dark:bg-slate-800 border border-outline-variant dark:border-slate-700 rounded-xl p-md shadow-sm transition-colors duration-200">
+                        <h3 className="font-h3 text-[20px] text-on-background dark:text-white mb-md">2. Tell us about yourself (Optional)</h3>
                         <textarea
-                            className="w-full bg-surface-container-low border border-outline-variant rounded-lg p-md font-body-md text-body-md focus:outline-none focus:border-primary min-h-[120px]"
+                            className="w-full bg-surface-container-low dark:bg-slate-900/50 border border-outline-variant dark:border-slate-600 rounded-lg p-md font-body-md text-body-md dark:text-white focus:outline-none focus:border-primary min-h-[120px] transition-colors duration-200 placeholder:text-slate-400 dark:placeholder:text-slate-500"
                             placeholder="Briefly describe your career goals or any specific areas you want to highlight..."
                             value={selfDescription}
                             onChange={(e) => setSelfDescription(e.target.value)}
@@ -97,10 +97,10 @@ const NewAnalysis = () => {
 
                 {/* Right Column: Job Description */}
                 <div className="space-y-md flex flex-col">
-                    <div className="bg-surface border border-outline-variant rounded-xl p-md shadow-sm flex-1 flex flex-col">
-                        <h3 className="font-h3 text-[20px] text-on-background mb-md">3. Target Job Description</h3>
+                    <div className="bg-surface dark:bg-slate-800 border border-outline-variant dark:border-slate-700 rounded-xl p-md shadow-sm flex-1 flex flex-col transition-colors duration-200">
+                        <h3 className="font-h3 text-[20px] text-on-background dark:text-white mb-md">3. Target Job Description</h3>
                         <textarea
-                            className="w-full bg-surface-container-low border border-outline-variant rounded-lg p-md font-body-md text-body-md focus:outline-none focus:border-primary flex-1 min-h-[300px]"
+                            className="w-full bg-surface-container-low dark:bg-slate-900/50 border border-outline-variant dark:border-slate-600 rounded-lg p-md font-body-md text-body-md dark:text-white focus:outline-none focus:border-primary flex-1 min-h-[300px] transition-colors duration-200 placeholder:text-slate-400 dark:placeholder:text-slate-500"
                             placeholder="Paste the full job description here..."
                             value={jobDescription}
                             onChange={(e) => setJobDescription(e.target.value)}

@@ -8,6 +8,18 @@ const PreparationPlan = () => {
     const [loading, setLoading] = useState(true);
     const [report, setReport] = useState(null);
     const [error, setError] = useState('');
+    const [checkedTasks, setCheckedTasks] = useState(new Set());
+
+    const toggleTask = (dayIndex, taskIndex) => {
+        const taskId = `${dayIndex}-${taskIndex}`;
+        const newCheckedTasks = new Set(checkedTasks);
+        if (newCheckedTasks.has(taskId)) {
+            newCheckedTasks.delete(taskId);
+        } else {
+            newCheckedTasks.add(taskId);
+        }
+        setCheckedTasks(newCheckedTasks);
+    };
 
     useEffect(() => {
         const fetchReport = async () => {
@@ -71,14 +83,27 @@ const PreparationPlan = () => {
                                 <div className="space-y-sm">
                                     <h4 className="font-button text-button text-on-surface">Action Items:</h4>
                                     <ul className="space-y-sm">
-                                        {day.tasks?.map((task, taskIdx) => (
-                                            <li key={taskIdx} className="flex items-start gap-sm p-sm bg-surface-container-lowest border border-outline-variant rounded-lg">
-                                                <div className="mt-0.5 w-5 h-5 rounded border border-outline flex items-center justify-center cursor-pointer hover:border-primary transition-colors">
-                                                    {/* Checkbox placeholder */}
-                                                </div>
-                                                <span className="font-body-md text-on-surface-variant flex-1">{task}</span>
-                                            </li>
-                                        ))}
+                                        {day.tasks?.map((task, taskIdx) => {
+                                            const taskId = `${index}-${taskIdx}`;
+                                            const isChecked = checkedTasks.has(taskId);
+                                            return (
+                                                <li key={taskIdx} className="flex items-start gap-sm p-sm bg-surface-container-lowest border border-outline-variant rounded-lg">
+                                                    <div 
+                                                        onClick={() => toggleTask(index, taskIdx)}
+                                                        className={`mt-0.5 w-5 h-5 rounded border flex items-center justify-center cursor-pointer transition-colors ${
+                                                            isChecked 
+                                                                ? 'bg-primary border-primary text-on-primary' 
+                                                                : 'border-outline hover:border-primary'
+                                                        }`}
+                                                    >
+                                                        {isChecked && <span className="material-symbols-outlined text-[14px] font-bold">check</span>}
+                                                    </div>
+                                                    <span className={`font-body-md flex-1 transition-all ${isChecked ? 'text-secondary line-through' : 'text-on-surface-variant'}`}>
+                                                        {task}
+                                                    </span>
+                                                </li>
+                                            );
+                                        })}
                                     </ul>
                                 </div>
                             </div>

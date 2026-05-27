@@ -1,14 +1,17 @@
 import { RouterProvider } from "react-router"
 import { router } from "./app.routes.jsx"
 import { AuthProvider } from "./features/auth/auth.context.jsx"
+import { ThemeProvider } from "./contexts/ThemeContext.jsx"
 
 function App() {
   
 
   return (
-      <AuthProvider>
-        <RouterProvider router={router} />
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <RouterProvider router={router} />
+        </AuthProvider>
+      </ThemeProvider>
           
   )
 }

@@ -4,6 +4,7 @@ import { User, Mail, Lock, Eye, EyeOff, ArrowRight } from 'lucide-react';
 import { Link, Navigate, useNavigate } from 'react-router';
 import { useAuth } from '../hooks/useAuth';
 import Logo from '../../../components/ui/Logo';
+import ThemeToggle from '../../../components/ui/ThemeToggle';
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -29,7 +30,10 @@ const Register = () => {
     }
 
     return (
-        <div className="flex min-h-screen bg-surface text-on-surface font-sans selection:bg-primary/20">
+        <div className="flex min-h-screen bg-surface text-on-surface font-sans selection:bg-primary/20 relative">
+            <div className="absolute top-4 right-4 z-50">
+                <ThemeToggle />
+            </div>
             {/* Left side: Image/Branding */}
             <div className="hidden lg:flex lg:w-1/2 bg-white relative overflow-hidden items-center justify-center border-r border-gray-200">
                 {/* Background Decorative Circles */}

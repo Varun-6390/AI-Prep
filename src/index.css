@@ -10,6 +10,41 @@
     color: theme('colors.on-surface');
     @apply font-sans antialiased;
   }
+  
+  .dark body {
+    background-color: theme('colors.slate.900');
+    color: theme('colors.slate.50');
+  }
+}
+
+@layer components {
+  /* Automatically map custom MD3 light colors to dark slate equivalents in dark mode */
+  .dark .text-on-surface,
+  .dark .text-on-background {
+    @apply text-slate-50 transition-colors duration-200;
+  }
+
+  .dark .text-secondary,
+  .dark .text-on-surface-variant {
+    @apply text-slate-400 transition-colors duration-200;
+  }
+
+  .dark .bg-surface,
+  .dark .bg-background {
+    @apply bg-slate-900 transition-colors duration-200;
+  }
+
+  .dark .bg-surface-container-low,
+  .dark .bg-surface-container-lowest,
+  .dark .bg-surface-container-high,
+  .dark .bg-surface-container-highest {
+    @apply bg-slate-800 transition-colors duration-200;
+  }
+
+  .dark .border-outline-variant,
+  .dark .border-outline {
+    @apply border-slate-700 transition-colors duration-200;
+  }
 }
 
 

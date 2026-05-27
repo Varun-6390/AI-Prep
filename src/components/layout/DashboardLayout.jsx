@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../../features/auth/hooks/useAuth';
 import interviewService from '../../services/interview.service';
 import Logo from '../ui/Logo';
+import ThemeToggle from '../ui/ThemeToggle';
 
 const SidebarContent = ({ latestId, user, handleLogout, location, onItemClick }) => (
     <>
@@ -91,7 +92,7 @@ const DashboardLayout = () => {
     }, [location.pathname]); // Refresh when navigating
 
     return (
-        <div className="bg-background text-on-background font-body-md text-body-md flex h-screen overflow-hidden antialiased">
+        <div className="bg-background dark:bg-slate-900 text-on-background dark:text-slate-50 font-body-md text-body-md flex h-screen overflow-hidden antialiased transition-colors duration-200">
             {/* Desktop Sidebar */}
             <nav className="hidden md:flex flex-col h-full py-8 px-4 bg-slate-50 dark:bg-slate-950 w-72 rounded-r-lg border-r border-slate-200 dark:border-slate-800 shadow-xl shrink-0 z-20">
                 <SidebarContent latestId={latestId} user={user} handleLogout={handleLogout} location={location} />
@@ -130,11 +131,11 @@ const DashboardLayout = () => {
             {/* Main Content Area */}
             <main className="flex-1 flex flex-col min-w-0 overflow-hidden relative pb-[80px] md:pb-0">
                 {/* TopAppBar */}
-                <header className="flex justify-between items-center w-full px-6 h-16 max-w-full docked full-width top-0 border-b border-slate-100 dark:border-slate-800 shadow-sm dark:shadow-none bg-white dark:bg-slate-950 font-manrope antialiased z-[50] shrink-0 sticky top-0">
+                <header className="flex justify-between items-center w-full px-6 h-16 max-w-full docked full-width top-0 border-b border-slate-100 dark:border-slate-800 shadow-sm dark:shadow-none bg-white dark:bg-slate-900 font-manrope antialiased z-[50] shrink-0 sticky transition-colors duration-200">
                     <div className="flex items-center gap-4">
                         <button 
                             onClick={() => setSidebarOpen(true)}
-                            className="md:hidden flex items-center justify-center w-10 h-10 rounded-full hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors"
+                            className="md:hidden flex items-center justify-center w-10 h-10 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                         >
                             <span className="material-symbols-outlined text-slate-600 dark:text-slate-400">menu</span>
                         </button>
@@ -143,9 +144,11 @@ const DashboardLayout = () => {
                     <div className="flex items-center gap-md">
                         {/* Search Input */}
                         <div className="hidden sm:flex relative">
-                            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[20px]" data-icon="search">search</span>
-                            <input className="pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-full font-body-sm text-body-sm text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-64 transition-all" placeholder="Search resources..." type="text"/>
+                            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary dark:text-slate-400 text-[20px]" data-icon="search">search</span>
+                            <input className="pl-10 pr-4 py-2 bg-surface-container-low dark:bg-slate-800 border border-outline-variant dark:border-slate-700 rounded-full font-body-sm text-body-sm text-on-surface dark:text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-64 transition-all placeholder:text-slate-500" placeholder="Search resources..." type="text"/>
                         </div>
+                        {/* Theme Toggle */}
+                        <ThemeToggle />
                         {/* Trailing Avatar with Dropdown */}
                         <div className="relative" ref={profileRef}>
                             <div
