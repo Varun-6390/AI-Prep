@@ -11,9 +11,13 @@ export const useAuth = () => {
         setLoading(true)
         try {
             const data = await login({ email, password })
-            setUser(data.user)
+            if (data && data.user) {
+                setUser(data.user)
+                return { success: true }
+            }
+            return { success: false, message: "Invalid response from server" }
         } catch (error) {
-            // console.log(error)
+            return { success: false, message: error.response?.data?.message || error.message || "Login failed" }
         }
         finally {
             setLoading(false)
@@ -24,28 +28,31 @@ export const useAuth = () => {
         setLoading(true)
         try {
             const data = await register({ username, email, password })
-            setUser(data.user)
+            if (data && data.user) {
+                setUser(data.user)
+                return { success: true }
+            }
+            return { success: false, message: "Invalid response from server" }
         } catch (error) {
-
+            return { success: false, message: error.response?.data?.message || error.message || "Registration failed" }
         }
         finally {
             setLoading(false)
         }
-
     }
 
     const handleLogout = async () => {
         setLoading(true)
         try {
-            const data = await logout()
+            await logout()
             setUser(null)
+            return { success: true }
         } catch (error) {
-
+            return { success: false, message: "Logout failed" }
         }
         finally {
             setLoading(false)
         }
-
     }
 
     useEffect(() => {

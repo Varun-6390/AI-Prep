@@ -13,11 +13,17 @@ const Login = () => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [error, setError] = useState("")
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await handleLogin({email,password})
-        navigate('/dashboard');
+        setError("")
+        const result = await handleLogin({email,password})
+        if (result && result.success) {
+            navigate('/dashboard');
+        } else {
+            setError(result?.message || "Something went wrong. Make sure backend API URL is configured correctly.");
+        }
     }
 
     if(loading)
@@ -31,18 +37,18 @@ const Login = () => {
                 <ThemeToggle />
             </div>
             {/* Left side: Image/Branding */}
-            <div className="hidden lg:flex lg:w-1/2 bg-white relative overflow-hidden items-center justify-center border-r border-gray-200">
+            <div className="hidden lg:flex lg:w-1/2 bg-white dark:bg-slate-950 relative overflow-hidden items-center justify-center border-r border-gray-200 dark:border-slate-800 transition-colors duration-200">
                 {/* Background Decorative Circles - updated for light mode */}
                 <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-primary rounded-full mix-blend-multiply filter blur-[100px] opacity-10"></div>
                 <div className="absolute top-[20%] right-[-10%] w-96 h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-[100px] opacity-20"></div>
                 <div className="absolute bottom-[-10%] left-[20%] w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-[100px] opacity-15"></div>
 
                 <div className="relative z-10 flex flex-col items-center justify-center p-12 text-center h-full">
-                    <div className="mb-8 p-4 bg-white/50 rounded-2xl backdrop-blur-md border border-gray-100 shadow-sm scale-150">
+                    <div className="mb-8 p-4 bg-white/50 dark:bg-slate-900/50 rounded-2xl backdrop-blur-md border border-gray-100 dark:border-slate-800 shadow-sm scale-150 transition-colors duration-200">
                         <Logo withText={false} className="w-16 h-16" />
                     </div>
                     <h1 className="text-4xl font-bold font-display mb-4 tracking-tight text-on-surface">Welcome Back</h1>
-                    <p className="text-gray-600 text-lg max-w-md leading-relaxed font-sans">
+                    <p className="text-gray-600 dark:text-slate-400 text-lg max-w-md leading-relaxed font-sans transition-colors duration-200">
                         AI-prep helps you master your interviews with AI-powered feedback.
                         Sign in to access your dashboard and prep plans.
                     </p>
@@ -59,7 +65,7 @@ const Login = () => {
 
                     <div className="mb-10 lg:mb-12">
                         <h2 className="text-3xl font-bold font-display text-on-surface tracking-tight">Sign in to your account</h2>
-                        <p className="mt-2 text-sm text-gray-600">
+                        <p className="mt-2 text-sm text-gray-600 dark:text-slate-400 transition-colors duration-200">
                             Don't have an account?{' '}
                             <Link to={"/register"} className="font-semibold text-primary hover:text-primary-container transition-colors">
                                 Start for free
@@ -68,12 +74,18 @@ const Login = () => {
                     </div>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
+                        {error && (
+                            <div className="bg-error-container text-on-error-container p-sm rounded-lg flex items-center gap-sm">
+                                <span className="material-symbols-outlined text-sm">error</span>
+                                <span className="font-body-sm text-sm">{error}</span>
+                            </div>
+                        )}
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium text-on-surface mb-2">
                                 Email address
                             </label>
                             <div className="relative">
-                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400 dark:text-slate-500">
                                     <Mail className="h-5 w-5" />
                                 </div>
                                 <input
@@ -82,7 +94,7 @@ const Login = () => {
                                     type="email"
                                     autoComplete="email"
                                     required
-                                    className="block w-full pl-10 pr-3 py-3 border border-outline bg-white rounded-lg text-on-surface placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all sm:text-sm"
+                                    className="block w-full pl-10 pr-3 py-3 border border-outline dark:border-slate-700 bg-white dark:bg-slate-900 rounded-lg text-on-surface dark:text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all sm:text-sm"
                                     placeholder="name@example.com"
                                     onChange={(e) => { setEmail(e.target.value)}}
                                 />
@@ -101,7 +113,7 @@ const Login = () => {
                                 </div>
                             </div>
                             <div className="relative">
-                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400 dark:text-slate-500">
                                     <Lock className="h-5 w-5" />
                                 </div>
                                 <input
@@ -110,14 +122,14 @@ const Login = () => {
                                     type={showPassword ? 'text' : 'password'}
                                     autoComplete="current-password"
                                     required
-                                    className="block w-full pl-10 pr-10 py-3 border border-outline bg-white rounded-lg text-on-surface placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all sm:text-sm"
+                                    className="block w-full pl-10 pr-10 py-3 border border-outline dark:border-slate-700 bg-white dark:bg-slate-900 rounded-lg text-on-surface dark:text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all sm:text-sm"
                                     placeholder="••••••••"
                                     onChange={(e) => {setPassword(e.target.value)}}
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
+                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:hover:text-slate-300 transition-colors"
                                 >
                                     {showPassword ? (
                                         <EyeOff className="h-5 w-5" />
@@ -133,9 +145,9 @@ const Login = () => {
                                 id="remember-me"
                                 name="remember-me"
                                 type="checkbox"
-                                className="h-4 w-4 bg-white border-outline text-primary focus:ring-primary rounded cursor-pointer"
+                                className="h-4 w-4 bg-white dark:bg-slate-900 border-outline text-primary focus:ring-primary rounded cursor-pointer transition-colors"
                             />
-                            <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-600 cursor-pointer">
+                            <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-600 dark:text-slate-400 cursor-pointer transition-colors">
                                 Remember me
                             </label>
                         </div>
